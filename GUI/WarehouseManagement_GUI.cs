@@ -15,7 +15,6 @@ namespace GUI
     public partial class WarehouseManagement_GUI : Form
     {
         private List<Good> goods = new List<Good>();
-        private BindingSource bs = new BindingSource();
         private Good_BLL good_BLL = new Good_BLL();
 
         public WarehouseManagement_GUI()
@@ -25,18 +24,7 @@ namespace GUI
 
         private void WarehouseManagement_Load(object sender, EventArgs e)
         {
-            good_BLL.getGoods();
-            goods.Add(new Good("1", "good1", "type 1", 10, new DateTime(), 20000));
-            goods.Add(new Good("2", "good2", "type 1", 10, new DateTime(), 20000));
-            goods.Add(new Good("3", "good3", "type 2", 10, new DateTime(), 20000));
-            goods.Add(new Good("4", "good4", "type 2", 10, new DateTime(), 20000));
-            goods.Add(new Good("5", "good5", "type 1", 10, new DateTime(), 20000));
-            goods.Add(new Good("6", "good6", "type 2", 10, new DateTime(), 20000));
-            goods.Add(new Good("7", "good7", "type 1", 10, new DateTime(), 20000));
-            goods.Add(new Good("8", "good8", "type 1", 10, new DateTime(), 20000));
-            goods.Add(new Good("9", "good9", "type 3", 10, new DateTime(), 20000));
-            goods.Add(new Good("10", "good10", "type 3", 10, new DateTime(), 20000));
-            bs.DataSource = goods;
+            goods = good_BLL.getGoods();
 
             foreach (Good good in goods)
             {
@@ -46,25 +34,32 @@ namespace GUI
                 }
             }
 
-            dgvGood.DataSource = bs;
+            dgvGood.DataSource = goods;
         }
 
         private void cbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            DataView dv = dt.DefaultView;
-            dv.RowFilter = string.Format("Series LIKE '%{0}%'", cbType.SelectedItem.ToString());
-            dgvGood.DataSource = dv;
+            
         }
 
         private void btDelete_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvGood.SelectedRows)
+            if (dgvGood.SelectedCells.Count > 0)
             {
-                dgvGood.Rows.Remove(row);
+                int selectedRowIndex = dgvGood.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvGood.Rows[selectedRowIndex];
+                Console.WriteLine(selectedRow.Cells[0].Value);
+                string deleteGoodId = selectedRow.Cells[0].Value.ToString();
+                DialogResult confirmResult = MessageBox.Show("Bạn có muốn xoá món hàng có mã " + selectedRow.Cells[0].Value + "?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    good_BLL.deleteGood(deleteGoodId);
+                }
+                goods = good_BLL.getGoods();
+                dgvGood.DataSource = goods;
             }
         }
-
+        
         private void btUpdate_Click(object sender, EventArgs e)
         {
             int index = dgvGood.CurrentCell.RowIndex;

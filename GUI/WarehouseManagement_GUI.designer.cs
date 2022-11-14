@@ -40,8 +40,9 @@
             // 
             // dgvGood
             // 
-            this.dgvGood.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvGood.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvGood.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvGood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGood.Location = new System.Drawing.Point(12, 41);
             this.dgvGood.Name = "dgvGood";
@@ -112,7 +113,7 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // WarehouseManagement
+            // WarehouseManagement_GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,7 +125,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.dgvGood);
-            this.Name = "WarehouseManagement";
+            this.Name = "WarehouseManagement_GUI";
             this.Text = "WarehouseManagement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.WarehouseManagement_Load);

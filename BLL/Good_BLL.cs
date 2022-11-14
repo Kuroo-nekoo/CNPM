@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace BLL
 {
     public class Good_BLL
     {
-        DatabaseAccess databaseAccess = new DatabaseAccess();
-        public void getGoods()
+        Good_DAL good_DAL = new Good_DAL();
+        public List<Good> getGoods()
         {
-            databaseAccess.getGoods();
+            return good_DAL.getGoods();
+        }
+
+        public void deleteGood(string id)
+        {
+            good_DAL.deleteGood(id);
         }
     }
 }
