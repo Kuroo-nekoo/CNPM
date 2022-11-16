@@ -30,7 +30,7 @@
         {
             this.dgvGood = new System.Windows.Forms.DataGridView();
             this.tbSearch = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btSearch = new System.Windows.Forms.Button();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
@@ -40,7 +40,8 @@
             // 
             // dgvGood
             // 
-            this.dgvGood.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvGood.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvGood.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvGood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -59,16 +60,18 @@
             this.tbSearch.Size = new System.Drawing.Size(120, 22);
             this.tbSearch.TabIndex = 1;
             this.tbSearch.Text = "Tìm kiếm tại đây";
+            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
             // 
-            // button1
+            // btSearch
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(713, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Tìm";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSearch.Location = new System.Drawing.Point(713, 12);
+            this.btSearch.Name = "btSearch";
+            this.btSearch.Size = new System.Drawing.Size(75, 23);
+            this.btSearch.TabIndex = 2;
+            this.btSearch.Text = "Tìm";
+            this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
             // 
             // cbType
             // 
@@ -122,7 +125,7 @@
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.cbType);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btSearch);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.dgvGood);
             this.Name = "WarehouseManagement_GUI";
@@ -139,7 +142,7 @@
 
         private System.Windows.Forms.DataGridView dgvGood;
         private System.Windows.Forms.TextBox tbSearch;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btSearch;
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btDelete;

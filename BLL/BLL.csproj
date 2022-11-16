@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoodType_BLL.cs" />
     <Compile Include="Good_BLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respone\AddGoodReponse.cs" />
+    <Compile Include="Respone\BaseRespone.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
-    <Compile Include="FoodAndBeverage.cs" />
-    <Compile Include="Good.cs" />
+    <Compile Include="FoodAndBeverageType_DTO.cs" />
+    <Compile Include="FoodAndBeverage_DTO.cs" />
+    <Compile Include="GoodType_DTO.cs" />
+    <Compile Include="Good_DTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

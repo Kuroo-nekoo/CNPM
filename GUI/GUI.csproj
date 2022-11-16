@@ -102,6 +102,9 @@
     <Compile Include="WarehouseManagement_GUI.designer.cs">
       <DependentUpon>WarehouseManagement_GUI.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddGood_GUI.resx">
+      <DependentUpon>AddGood_GUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

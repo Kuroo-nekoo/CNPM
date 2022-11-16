@@ -12,9 +12,9 @@ namespace DAL
     {
         SqlConnection sqlConnection = SqlConnectionData.Connect();
         SqlDataReader sqlDataReader;
-        public List<Good> getGoods()
+        public List<Good_DTO> getGoods()
         {
-            List<Good> goods = new List<Good>();
+            List<Good_DTO> goods = new List<Good_DTO>();
 
             try
             {
@@ -23,7 +23,7 @@ namespace DAL
                     CommandTimeout = 60,
                     Connection = sqlConnection,
                     CommandType = System.Data.CommandType.Text,
-                    CommandText = "select Good.id, goodName, GoodType.goodTypeValue, amount, price, expiredDate from Good left join GoodType on Good.goodTypeId = GoodType.id"
+                    CommandText = "select Good.id as goodId, goodName, GoodType.id as goodTypeId, GoodType.goodTypeValue, amount, price, expiredDate from Good left join GoodType on Good.goodTypeId = GoodType.id"
                 };
 
                 sqlConnection.Open();
@@ -35,15 +35,15 @@ namespace DAL
                     {
                         while (sqlDataReader.Read())
                         {
-                            Console.WriteLine(sqlDataReader.GetString(1));
-                            string id = sqlDataReader.GetString(0);
+                            int id = sqlDataReader.GetInt32(0);
                             string name = sqlDataReader.GetString(1);
-                            string goodType = sqlDataReader.GetString(2);
-                            int amount = sqlDataReader.GetInt32(3);
-                            double price = sqlDataReader.GetDouble(4);
-                            DateTime expiredDate = sqlDataReader.GetDateTime(5);
+                            int goodTypeId = sqlDataReader.GetInt32(2);
+                            string goodType = sqlDataReader.GetString(3);
+                            int amount = sqlDataReader.GetInt32(4);
+                            double price = sqlDataReader.GetDouble(5);
+                            DateTime expiredDate = sqlDataReader.GetDateTime(6);
 
-                            goods.Add(new Good(id, name, goodType, amount, price, expiredDate));
+                            goods.Add(new Good_DTO(id, name, new GoodType_DTO(goodTypeId, goodType), amount, price, expiredDate));
                         }
                     }
 
@@ -81,6 +81,122 @@ namespace DAL
             {
                 sqlConnection.Close();
             }
+        }
+
+        public List<Good_DTO> filterGood(string filteredType)
+        {
+            List<Good_DTO> goods = new List<Good_DTO>();
+
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand()
+                {
+                    CommandTimeout = 60,
+                    Connection = sqlConnection,
+                    CommandType = System.Data.CommandType.Text,
+                    CommandText = "select Good.id, goodName, Good.goodTypeId, GoodType.goodTypeValue, amount, price, expiredDate from Good left join GoodType on Good.goodTypeId = GoodType.id where GoodType.goodTypeValue = @goodType",
+                };
+
+                sqlCommand.Parameters.AddWithValue("@goodType", filteredType);
+
+                sqlConnection.Open();
+                if (sqlConnection.State == System.Data.ConnectionState.Open)
+                {
+                    sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            int id = sqlDataReader.GetInt32(0);
+                            string name = sqlDataReader.GetString(1);
+                            int goodTypeId = sqlDataReader.GetInt32(2);
+                            string goodType = sqlDataReader.GetString(3);
+                            int amount = sqlDataReader.GetInt32(4);
+                            double price = sqlDataReader.GetDouble(5);
+                            DateTime expiredDate = sqlDataReader.GetDateTime(6);
+
+                            goods.Add(new Good_DTO(id, name, new GoodType_DTO(goodTypeId, goodType), amount, price, expiredDate));
+                        }
+                    }
+                }
+                sqlConnection.Close();
+            }
+            catch
+            {
+                sqlConnection.Close();
+            }
+            return goods;
+        }
+
+        public void addGood(Good_DTO good)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand()
+                {
+                    CommandTimeout = 60,
+                    Connection = sqlConnection,
+                    CommandType = System.Data.CommandType.Text,
+                    CommandText = "insert into Good (goodName, amount, price, goodTypeId, expiredDate) values (@name, @amount, @price, @goodTypeId, @expiredDate)",
+                };
+
+                sqlCommand.Parameters.AddWithValue("@name", good.name);
+                sqlCommand.Parameters.AddWithValue("@amount", good.amount);
+                sqlCommand.Parameters.AddWithValue("@price", good.price);
+                sqlCommand.Parameters.AddWithValue("@goodTypeId", good.type);
+
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            catch
+            {
+                sqlConnection.Close();
+            }
+        }
+
+        public List<Good_DTO> searchGood(string searchValue)
+        {
+            List<Good_DTO> goodList = new List<Good_DTO>();
+
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand()
+                {
+                    CommandTimeout = 60,
+                    Connection = sqlConnection,
+                    CommandType = System.Data.CommandType.Text,
+                    CommandText = "select Good.id, goodName, Good.goodTypeId, GoodType.goodTypeValue, amount, price, expiredDate from Good left join GoodType on Good.goodTypeId = GoodType.id where Good.goodName like '%'+@searchValue+'%'",
+                };
+
+                sqlCommand.Parameters.AddWithValue("@searchValue", searchValue);
+                sqlConnection.Open();
+                if (sqlConnection.State == System.Data.ConnectionState.Open)
+                {
+                    sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            int id = sqlDataReader.GetInt32(0);
+                            string name = sqlDataReader.GetString(1);
+                            int goodTypeId = sqlDataReader.GetInt32(2);
+                            string goodType = sqlDataReader.GetString(3);
+                            int amount = sqlDataReader.GetInt32(4);
+                            double price = sqlDataReader.GetDouble(5);
+                            DateTime expiredDate = sqlDataReader.GetDateTime(6);
+
+
+                            goodList.Add(new Good_DTO(id, name, new GoodType_DTO(goodTypeId, goodType), amount, price, expiredDate));
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                sqlConnection.Close();
+            }
+            return goodList;
         }
     }
 }

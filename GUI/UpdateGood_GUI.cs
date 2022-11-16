@@ -13,8 +13,8 @@ namespace GUI
 {
     public partial class UpdateGood_GUI : Form
     {
-        public Good good;
-        public UpdateGood_GUI(Good good)
+        public Good_DTO good;
+        public UpdateGood_GUI(Good_DTO good)
         {
             InitializeComponent();
             this.good = good;

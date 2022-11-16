@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseAccess.cs" />
+    <Compile Include="FoodAndBeverageType_DAL.cs" />
+    <Compile Include="FoodAndBeverage_DAL.cs" />
+    <Compile Include="GoodType_DAL.cs" />
     <Compile Include="Good_DAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
