@@ -12,8 +12,8 @@ namespace GUI
 {
     public partial class PaymentMethodSelection_GUI : Form
     {
-        int total = 0;
-        public PaymentMethodSelection_GUI(int total)
+        Double total = 0;
+        public PaymentMethodSelection_GUI(Double total)
         {
             InitializeComponent();
             this.total = total;

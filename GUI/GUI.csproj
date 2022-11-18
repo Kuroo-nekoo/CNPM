@@ -46,17 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddGood_GUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddGood_GUI.designer.cs">
-      <DependentUpon>AddGood_GUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cashier_GUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cashier_GUI.designer.cs">
       <DependentUpon>Cashier_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompareSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompareSupplier.Designer.cs">
+      <DependentUpon>CompareSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagerSelection_GUI.cs">
       <SubType>Form</SubType>
@@ -96,14 +96,29 @@
     <Compile Include="UpdateGood_GUI.designer.cs">
       <DependentUpon>UpdateGood_GUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControl\SelectedItemFlowLayoutPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControl\SelectedItemFlowLayoutPanel.Designer.cs">
+      <DependentUpon>SelectedItemFlowLayoutPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="WarehouseManagement_GUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WarehouseManagement_GUI.designer.cs">
       <DependentUpon>WarehouseManagement_GUI.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddGood_GUI.resx">
-      <DependentUpon>AddGood_GUI.cs</DependentUpon>
+    <EmbeddedResource Include="Cashier_GUI.resx">
+      <DependentUpon>Cashier_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompareSupplier.resx">
+      <DependentUpon>CompareSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControl\SelectedItemFlowLayoutPanel.resx">
+      <DependentUpon>SelectedItemFlowLayoutPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerSelection_GUI.resx">
+      <DependentUpon>ManagerSelection_GUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -114,6 +129,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SupplierManagement_GUI.resx">
+      <DependentUpon>SupplierManagement_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateGood_GUI.resx">
+      <DependentUpon>UpdateGood_GUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WarehouseManagement_GUI.resx">
       <DependentUpon>WarehouseManagement_GUI.cs</DependentUpon>
     </EmbeddedResource>

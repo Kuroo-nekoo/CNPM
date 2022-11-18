@@ -9,71 +9,57 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DTO;
+using BLL;
+using GUI.CustomControl;
 
 namespace GUI
 {
     public partial class Cashier_GUI : Form
     {
-        ArrayList categoryList = new ArrayList() { new Category("0", "món ăn", new List<FoodAndBeverage>() { new FoodAndBeverage("1", "mon 1", 10) }), new Category("1", "nước uống", new List<FoodAndBeverage>{ new FoodAndBeverage("2", "mon 2", 20) }) };
-        ArrayList selectedItemList = new ArrayList();
-        int total = 100000;
+        FoodAndBeverageType_BLL foodAndBeverageType_BLL = new FoodAndBeverageType_BLL();
+        FoodAndBeverage_BLL foodAndBeverage_BLL = new FoodAndBeverage_BLL();
+        List<FoodAndBeverageType_DTO> foodAndBeverageTypes;
+        List<FoodAndBeverage_DTO> selectedFoodAndBeverages = new List<FoodAndBeverage_DTO>();
+        List<String> seletedIds = new List<String>(); 
+        List<FoodAndBeverage_DTO> foodAndBeverages;
+        Double total = 0;
         public Cashier_GUI()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void foodAndBeverageTypeButtonClick(object sender, EventArgs e)
         {
-            foreach (Category category in categoryList)
-            {
-                Button categoryButton = new Button();
-                categoryButton.Name = category.id;
-                categoryButton.Text = category.name;
-                categoryButton.Width = 200 - 5;
-                categoryButton.Height = 100;
-                categoryButton.Click += CategoryButtonClick;
-                flpCategory.Controls.Add(categoryButton);
-            }
-        }
+            string typeId = (sender as Button).Name;
+            foodAndBeverages = foodAndBeverage_BLL.getFoodAndBeveragesByType(typeId);
+            flpMain.Controls.Clear();
 
-        private void CategoryButtonClick(object sender, EventArgs e)
-        {
-            string id = (sender as Button).Name;
-
-            foreach (Category category in categoryList)
+            foreach (FoodAndBeverage_DTO foodAndBeverage in foodAndBeverages)
             {
-                if (id == category.id)
-                {
-                    flpMain.Controls.Clear();
-                    foreach (FoodAndBeverage item in category.items)
-                    {
-                        Button itemButton = new Button() { Text = item.name, Width = 395, Height = 150 };
-                        itemButton.Click += ItemButtonClick;
-                        flpMain.Controls.Add(itemButton);
-                    }
-                }
+                Button itemButton = new Button() { Text = foodAndBeverage.name, Width = (flpMain.Width - 15) / 2, Height = 150, Name = foodAndBeverage.id.ToString() };
+                itemButton.Click += ItemButtonClick;
+                flpMain.Controls.Add(itemButton);
             }
         }
 
         public void ItemButtonClick(object sender, EventArgs e)
         {
-            string itemName = (sender as Button).Text;
+            string id = (sender as Button).Name;
 
-            if (!selectedItemList.Contains(itemName))
+            foreach (FoodAndBeverage_DTO foodAndBeverage in foodAndBeverages)
             {
-                selectedItemList.Add(itemName);
+                if (foodAndBeverage.id.ToString().Equals(id) && !seletedIds.Contains(id))
+                {
+                    selectedFoodAndBeverages.Add(foodAndBeverage);
+                    seletedIds.Add(id);
+                }
             }
 
             flpSelectedItem.Controls.Clear();
-            foreach (string item in selectedItemList)
+            foreach (FoodAndBeverage_DTO item in selectedFoodAndBeverages)
             {
-                FlowLayoutPanel group = new FlowLayoutPanel() { Height = 30 };
-                Label lbItemName = new Label() { Text = item, Anchor = AnchorStyles.Left };
-                Button btIncrease = new Button() { Text = "+", Width = 20, Anchor = AnchorStyles.Left };
-                TextBox tbQuantity = new TextBox() { Text = "1", Width = 20, Anchor = AnchorStyles.Left };
-                Button btnDecrease = new Button() { Text = "-", Width = 20, Anchor = AnchorStyles.Left };
-                group.Controls.AddRange(new Control[] { lbItemName, btIncrease, tbQuantity, btnDecrease });
-                flpSelectedItem.Controls.Add(group);
+                SelectedItemFlowLayoutPanel seletedItemFlowLayoutPanel = new SelectedItemFlowLayoutPanel(item, selectedFoodAndBeverages, seletedIds, lbTotal, total);
+                flpSelectedItem.Controls.Add(seletedItemFlowLayoutPanel);
             }
         }
 
@@ -81,6 +67,22 @@ namespace GUI
         {
             PaymentMethodSelection_GUI form2 = new PaymentMethodSelection_GUI(total);
             form2.Show();
+        }
+
+        private void Cashier_Load(object sender, EventArgs e)
+        {
+            foodAndBeverageTypes = foodAndBeverageType_BLL.getFoodAndBeverageTypes();
+
+            foreach (FoodAndBeverageType_DTO foodAndBeverageType in foodAndBeverageTypes)
+            { 
+                Button foodAndBeverageTypeButton = new Button();
+                foodAndBeverageTypeButton.Name = foodAndBeverageType.id.ToString();
+                foodAndBeverageTypeButton.Text = foodAndBeverageType.value;
+                foodAndBeverageTypeButton.Width = 200 - 5;
+                foodAndBeverageTypeButton.Height = 100;
+                foodAndBeverageTypeButton.Click += foodAndBeverageTypeButtonClick;
+                flpCategory.Controls.Add(foodAndBeverageTypeButton);
+            }
         }
     }
 }

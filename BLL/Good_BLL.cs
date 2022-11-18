@@ -11,7 +11,12 @@ namespace BLL
 {
     public class Good_BLL
     {
-        Good_DAL good_DAL = new Good_DAL();
+        Good_DAL good_DAL;
+
+        public Good_BLL ()
+        {
+            good_DAL = new Good_DAL();
+        }
         public List<Good_DTO> getGoods()
         {
             return good_DAL.getGoods();
@@ -55,7 +60,7 @@ namespace BLL
         }
 
         public List<Good_DTO> searchGood(string searchValue)
-        { 
+        {
             if (searchValue.Equals("")) {
                 return good_DAL.getGoods();
             } 
@@ -63,6 +68,11 @@ namespace BLL
             { 
                 return good_DAL.searchGood(searchValue);
             }
+        }
+
+        public void updateGood(Good_DTO good_DTO)
+        {
+            good_DAL.updateGood(good_DTO);
         }
     }
 }

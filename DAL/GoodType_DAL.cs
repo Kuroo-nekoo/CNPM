@@ -12,8 +12,12 @@ namespace DAL
 {
     public class GoodType_DAL
     {
-        SqlConnection sqlConnection = SqlConnectionData.Connect();
+        SqlConnection sqlConnection;
         SqlDataReader sqlDataReader;
+        public GoodType_DAL ()
+        {
+            sqlConnection = SqlConnectionData.Connect();
+        }
         public List<GoodType_DTO> getGoodTypes()
         { 
             List<GoodType_DTO> goodTypeList = new List<GoodType_DTO>();
@@ -23,12 +27,12 @@ namespace DAL
                 SqlCommand sqlCommand = new SqlCommand()
                 {
                     CommandType = System.Data.CommandType.Text,
-                    CommandText = "select * from goodType",
+                    CommandText = "select * from GoodType",
                     Connection = sqlConnection,
                     CommandTimeout = 60
                 };
 
-                sqlDataReader = sqlCommand.ExecuteReader();
+                
                 sqlConnection.Open();
                 if (sqlConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -44,6 +48,7 @@ namespace DAL
                         }
                     }
                 }
+                sqlConnection.Close();
             }
             catch
             {

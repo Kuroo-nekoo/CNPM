@@ -46,6 +46,7 @@
     <Compile Include="GoodType_DTO.cs" />
     <Compile Include="Good_DTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Supplier_DTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

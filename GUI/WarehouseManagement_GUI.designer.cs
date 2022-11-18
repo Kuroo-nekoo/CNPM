@@ -34,7 +34,7 @@
             this.cbType = new System.Windows.Forms.ComboBox();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
-            this.btAdd = new System.Windows.Forms.Button();
+            this.btRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGood)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,12 +45,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvGood.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvGood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGood.Location = new System.Drawing.Point(12, 41);
+            this.dgvGood.Location = new System.Drawing.Point(12, 40);
             this.dgvGood.Name = "dgvGood";
             this.dgvGood.RowHeadersWidth = 51;
             this.dgvGood.RowTemplate.Height = 24;
             this.dgvGood.Size = new System.Drawing.Size(776, 264);
             this.dgvGood.TabIndex = 0;
+            this.dgvGood.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvGood_KeyDown);
             // 
             // tbSearch
             // 
@@ -105,23 +106,23 @@
             this.btDelete.UseVisualStyleBackColor = true;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
-            // btAdd
+            // btRefresh
             // 
-            this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAdd.Location = new System.Drawing.Point(528, 415);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(75, 23);
-            this.btAdd.TabIndex = 6;
-            this.btAdd.Text = "Thêm";
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            this.btRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btRefresh.Location = new System.Drawing.Point(379, 10);
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btRefresh.TabIndex = 6;
+            this.btRefresh.Text = "Làm mới";
+            this.btRefresh.UseVisualStyleBackColor = true;
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // WarehouseManagement_GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btAdd);
+            this.Controls.Add(this.btRefresh);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.cbType);
@@ -146,6 +147,6 @@
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btDelete;
-        private System.Windows.Forms.Button btAdd;
+        private System.Windows.Forms.Button btRefresh;
     }
 }

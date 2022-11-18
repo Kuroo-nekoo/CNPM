@@ -137,13 +137,14 @@ namespace DAL
                     CommandTimeout = 60,
                     Connection = sqlConnection,
                     CommandType = System.Data.CommandType.Text,
-                    CommandText = "insert into Good (goodName, amount, price, goodTypeId, expiredDate) values (@name, @amount, @price, @goodTypeId, @expiredDate)",
+                    CommandText = "insert into Good values (@name, @amount, @price, @goodTypeId, @expiredDate)",
                 };
 
                 sqlCommand.Parameters.AddWithValue("@name", good.name);
                 sqlCommand.Parameters.AddWithValue("@amount", good.amount);
                 sqlCommand.Parameters.AddWithValue("@price", good.price);
-                sqlCommand.Parameters.AddWithValue("@goodTypeId", good.type);
+                sqlCommand.Parameters.AddWithValue("@goodTypeId", good.type.id);
+                sqlCommand.Parameters.AddWithValue("@expiredDate", good.expiredDate);
 
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
@@ -197,6 +198,35 @@ namespace DAL
                 sqlConnection.Close();
             }
             return goodList;
+        }
+
+        public void updateGood(Good_DTO good)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand()
+                {
+                    CommandTimeout = 60,
+                    Connection = sqlConnection,
+                    CommandType = System.Data.CommandType.Text,
+                    CommandText = "update Good set goodName = @name, amount = @amount, price = @price, goodTypeId = @goodTypeId, expiredDate = @expiredDate where Good.id = @id",
+                };
+
+                sqlCommand.Parameters.AddWithValue("@name", good.name);
+                sqlCommand.Parameters.AddWithValue("@amount", good.amount);
+                sqlCommand.Parameters.AddWithValue("@price", good.price);
+                sqlCommand.Parameters.AddWithValue("@goodTypeId", good.type.id);
+                sqlCommand.Parameters.AddWithValue("@expiredDate", Convert.ToDateTime(good.expiredDate));
+                sqlCommand.Parameters.AddWithValue("@id", good.id);
+
+                sqlConnection.Open();
+                int res = sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            catch
+            {
+                sqlConnection.Close();
+            }
         }
     }
 }

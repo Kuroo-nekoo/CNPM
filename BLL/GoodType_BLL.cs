@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    internal class GoodType_BLL
+    public class GoodType_BLL
     {
-        private GoodType_DAL goodType_DAL = new GoodType_DAL();
-        public List<GoodType_DTO> getGooodTypes()
+        private GoodType_DAL goodType_DAL; 
+        public GoodType_BLL()
+        {
+            goodType_DAL = new GoodType_DAL();
+        }
+        public List<GoodType_DTO> getGoodTypes()
         {
             return goodType_DAL.getGoodTypes();
         }

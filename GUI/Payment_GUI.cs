@@ -12,10 +12,10 @@ namespace GUI
 {
     public partial class Payment_GUI : Form
     {
-        private int total = 0;
-        private int receive = 0;
-        private int excess = 0;
-        public Payment_GUI(int total)
+        private Double total = 0;
+        private Double receive = 0;
+        private Double excess = 0;
+        public Payment_GUI(Double total)
         {
             InitializeComponent();
             this.total = total;

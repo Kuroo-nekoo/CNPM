@@ -61,12 +61,8 @@ namespace GUI
             Good_DTO good = goods[index];
             UpdateGood_GUI updateGood = new UpdateGood_GUI(good);
             updateGood.Show();
-        }
-
-        private void btAdd_Click(object sender, EventArgs e)
-        {
-            AddGood_GUI addGood_GUI = new AddGood_GUI();
-            addGood_GUI.Show();
+            goods = good_BLL.getGoods();
+            loadDataToDataGridView();
         }
 
         private void loadDataToDataGridView()
@@ -94,9 +90,16 @@ namespace GUI
         private void btSearch_Click(object sender, EventArgs e)
         {
             string searchValue = tbSearch.Text;
-            goods = good_BLL.searchGood(searchValue);
-            loadDataToDataGridView();
-            tbSearch.Text = "";
+            if (searchValue.Length == 0)
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin để tìm kiếm", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
+                goods = good_BLL.searchGood(searchValue);
+                loadDataToDataGridView();
+                tbSearch.Text = "";
+            }
         }
 
         private void tbSearch_KeyDown(object sender, KeyEventArgs e)
@@ -105,6 +108,20 @@ namespace GUI
             {
                 btSearch_Click(sender, e);
             }
+        }
+
+        private void dgvGood_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                btDelete_Click(sender, e);
+            }
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            goods = good_BLL.getGoods();
+            loadDataToDataGridView();
         }
     }
 }
