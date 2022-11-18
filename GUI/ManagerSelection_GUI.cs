@@ -22,5 +22,10 @@ namespace GUI
             SupplierManagement_GUI supplierManagement = new SupplierManagement_GUI();
             supplierManagement.Show();
         }
+
+        private void btCompare_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
